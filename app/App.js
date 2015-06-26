@@ -14,7 +14,15 @@ var data = {
 //     var well = this.props.fragments;
 //   }
 // }
+// var filledRow = React.createClass({
+//   render: function() {
+//     return ({
+//       <tr>
 
+//       </tr>
+//     })
+//   }
+// })
 
 var App = React.createClass({
   render: function () {
@@ -43,7 +51,7 @@ var App = React.createClass({
       combinations = combinations * bin.numberOfRows;
       var styleSwitchIndex = totalCombinations/combinations;
       var rowIndex = 0;
-      var binRows = []
+      var binRows = [];
       for (var col=0; col<bin.numberOfRows; col++) {
         binRows.push(fragments-col);
       }
@@ -67,57 +75,37 @@ var App = React.createClass({
     return (
       <div className ="wellTable">
         <table style={{width:'100%'}}>
+        
         {headers.map(function(header) {
           return (<td>
             <th> {"Frag_" + header} </th>
             </td>)
         })}
-        {rows.map(function(row) {
-          return (
-            <tr>
-            <th colSpan="1"> {"Combo_" + row} </th>
-            </tr>
-            )
-        })}
+
         {rows.map(function(row) {
             headers.map(function(header) {
             return (
-            <td dataAlign = "right"> test </td>
+              <tr>
+              <th> Header </th>
+              <td> test </td>
+              </tr>
             )
           })
         })}
         </table>
       </div>
       )
-
-                // {headers.map(function (header) {
-            //   return (<td> test </td>)
-            //   })}
-    // return (
-    //   <div>
-    //       {
-    //         var bins = data.bins
-    //       }
-    //       // {data.bins.map(function (rows) {
-    //       //   var binNumber = 5 + 1;  
-    //       //   return (<th>
-    //       //     <td>{rows}</td>
-    //       //   </th>)
-    //       // })}
-    //   <table style={{width:'100%'}}>
-    //       <tr>
-    //         <td> hi </td>
-    //       </tr>
-    //       <tr>
-    //         <td>{bins}</td>
-    //         <td>Jackson</td> 
-    //         <td>94</td>
-    //       </tr>
-    //     </table>
-    //   </div>
-    // );
   }
 });
+
+
+        // {rows.map(function(row) {
+        //   return (
+        //     <tr>
+        //     <th colSpan="1"> {"Combo_" + row} </th>
+        //     </tr>
+        //     )
+        // })}
 
 React.render(
   <App data={data}/>,
