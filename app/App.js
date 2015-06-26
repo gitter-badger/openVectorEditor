@@ -59,7 +59,6 @@ var App = React.createClass({
     });
     
     makeCombinations(binArray, makeRowIndexArray);
-    debugger
 
     var headers = [];
     var rows = [];
@@ -75,26 +74,65 @@ var App = React.createClass({
     return (
       <div className ="wellTable">
         <table style={{width:'100%'}}>
-        
-        {headers.map(function(header) {
-          return (<td>
-            <th> {"Frag_" + header} </th>
-            </td>)
-        })}
-
-        {rows.map(function(row) {
-            headers.map(function(header) {
+          <tr>
+            <th>blank </th>
+            {headers.map(function(header) {
+              return (
+                <th> {"Frag_" + header} </th>
+                )
+            })}
+          </tr>
+          {rows.map(function(row) {
             return (
               <tr>
-              <th> Header </th>
-              <td> test </td>
+                <th colSpan="1"> {"Combo_" + row} </th>
+                {headers.map(function(header) {
+                  console.log('header: ' + header);
+                  return (
+                  <td dataAlign = "right"> test </td>
+                  )
+                })}
               </tr>
-            )
-          })
-        })}
+              )
+          })}
+          
         </table>
       </div>
       )
+          // {rows.map(function(row) {
+          //     headers.map(function(header) {
+          //     return (
+          //     <td dataAlign = "right"> test </td>
+          //     )
+          //   })
+          // })}
+
+                // {headers.map(function (header) {
+            //   return (<td> test </td>)
+            //   })}
+    // return (
+    //   <div>
+    //       {
+    //         var bins = data.bins
+    //       }
+    //       // {data.bins.map(function (rows) {
+    //       //   var binNumber = 5 + 1;  
+    //       //   return (<th>
+    //       //     <td>{rows}</td>
+    //       //   </th>)
+    //       // })}
+    //   <table style={{width:'100%'}}>
+    //       <tr>
+    //         <td> hi </td>
+    //       </tr>
+    //       <tr>
+    //         <td>{bins}</td>
+    //         <td>Jackson</td> 
+    //         <td>94</td>
+    //       </tr>
+    //     </table>
+    //   </div>
+    // );
   }
 });
 
