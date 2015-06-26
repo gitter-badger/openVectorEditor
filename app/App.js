@@ -51,7 +51,6 @@ var App = React.createClass({
     });
     
     makeCombinations(binArray, makeRowIndexArray);
-    debugger
 
     var headers = [];
     var rows = [];
@@ -67,28 +66,38 @@ var App = React.createClass({
     return (
       <div className ="wellTable">
         <table style={{width:'100%'}}>
-        {headers.map(function(header) {
-          return (<td>
-            <th> {"Frag_" + header} </th>
-            </td>)
-        })}
-        {rows.map(function(row) {
-          return (
-            <tr>
-            <th colSpan="1"> {"Combo_" + row} </th>
-            </tr>
-            )
-        })}
-        {rows.map(function(row) {
-            headers.map(function(header) {
+          <tr>
+            <th>blank </th>
+            {headers.map(function(header) {
+              return (
+                <th> {"Frag_" + header} </th>
+                )
+            })}
+          </tr>
+          {rows.map(function(row) {
             return (
-            <td dataAlign = "right"> test </td>
-            )
-          })
-        })}
+              <tr>
+                <th colSpan="1"> {"Combo_" + row} </th>
+                {headers.map(function(header) {
+                  console.log('header: ' + header);
+                  return (
+                  <td dataAlign = "right"> test </td>
+                  )
+                })}
+              </tr>
+              )
+          })}
+          
         </table>
       </div>
       )
+          // {rows.map(function(row) {
+          //     headers.map(function(header) {
+          //     return (
+          //     <td dataAlign = "right"> test </td>
+          //     )
+          //   })
+          // })}
 
                 // {headers.map(function (header) {
             //   return (<td> test </td>)
