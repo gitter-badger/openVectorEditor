@@ -30,6 +30,7 @@ var App = React.createClass({
     var rowIndexArray = [];
     var binArray = [];
     function makeCombinations (choices, callback, prefix) {
+      debugger;
         if(!choices.length) {
             return callback(prefix);
         }
@@ -57,16 +58,13 @@ var App = React.createClass({
       }
       binArray.push(binRows);
     });
-    
     makeCombinations(binArray, makeRowIndexArray);
+    
 
     var headers = [];
     var rows = [];
     for (var i = 0; i < fragments; i++) {
-      headers.push(i+1);
-    }
-    for (var i = 0; i < combinations; i++) {
-      rows.push(i+1);
+      headers.push(i);
     }
 
     var rowText = 'O';
@@ -74,32 +72,44 @@ var App = React.createClass({
     return (
       <div className ="wellTable">
         <table style={{width:'100%'}}>
-          <tr>
-            <th>blank </th>
-            {headers.map(function(header) {
-              return (
-                <th> {"Frag_" + header} </th>
-                )
-            })}
-          </tr>
-          {rows.map(function(row) {
+          <thead style={{display:'table-header-group'}}>
+            <tr>
+              <th>blank </th>
+              {headers.map(function(header) {
+                return (
+                  <th> {"Frag_" + header} </th>
+                  );
+              })}
+            </tr>
+          </thead>
+          {rowIndexArray.map(function(row, index) {
             return (
               <tr>
-                <th colSpan="1"> {"Combo_" + row} </th>
-                {headers.map(function(header) {
+                <th colSpan="1"> {"Combo_" + (index + 1)} </th>
+                {headers.map(function(header, columnNumber) { //loop through the length of the headers array
+                  var cell;
+                  console.log('row: ' + row);
+                  if (row.indexOf(columnNumber) > -1) {
+                    //return a filled in cell
+                    debugger
+                    cell = (<td> Hit </td>);
+                  } else {
+                    //return a blank cell
+                    cell = (<td>  </td>);
+                  }
                   console.log('header: ' + header);
                   return (
-                  <td dataAlign = "right"> test </td>
-                  )
+                    {cell}
+                  );
                 })}
               </tr>
-              )
+              );
           })}
           
         </table>
       </div>
-      )
-          // {rows.map(function(row) {
+      );
+          // {rowIndexArray.map(function(row) {
           //     headers.map(function(header) {
           //     return (
           //     <td dataAlign = "right"> test </td>
