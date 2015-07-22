@@ -6,11 +6,12 @@ var RowView = React.createClass({
   mixins: [baobabBranch],
   cursors: {
     visibleRowsData: ['$visibleRowsData'],
+    rowLengthCombo: ['$rowLengthCombo'],
   },
   render: function () {
     setTimeout(function function_name(argument) {
       console.log('hey there!!');
-      tree.select('vectorEditorState', 'visibleRows').set({start: 0, end: 4});
+      tree.select('rows').push(6);
     },100);
     return (
           <div>
