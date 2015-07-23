@@ -1,13 +1,36 @@
 var React = require('react');
+require('../style.css');
 var data = {
   bins:[{
-    numberOfRows: 3
+    array: ['plasmid1','plasmid2','plasmid3']
   },{
-    numberOfRows: 2
+    array: ['plasmid4','plasmid5']
   },{
-    numberOfRows: 2
+    array: ['plasmid6','plasmid7']
+  },{
+    array: ['plasmid6','plasmid7']
   }]
-}
+  // {
+  //   array: ['plasmid8','plasmid9','plasmid10']
+  // },
+  // {
+  //   array: ['plasmid8','plasmid9','plasmid10', 'plasmid11']
+  // }]
+ };
+
+// var data = {
+//   bins:[{
+//     row1: {name: 'row1'},
+//     row2: {name: 'row2'},
+//     row3: {name: 'row3'}
+//   },{
+//     row1: {name: 'row1'},
+//     row2: {name: 'row2'}
+//   },{
+//     row1: {name: 'row1'},
+//     row2: {name: 'row2'}
+//   }]
+// }
 
 // var WellRow = React.createClass {
 //   render: function() {
@@ -30,7 +53,6 @@ var App = React.createClass({
     var rowIndexArray = [];
     var binArray = [];
     function makeCombinations (choices, callback, prefix) {
-      debugger;
         if(!choices.length) {
             return callback(prefix);
         }
@@ -43,45 +65,54 @@ var App = React.createClass({
           rowIndexArray.push(indices);
       }
     }
-
     var fragments = 0;
     var totalCombinations = 1;
     var combinations = 1;
+    var headers = [];
+    var finalVolume = 19 + this.props.data.bins.length*2;
     this.props.data.bins.forEach(function(bin) {
-      fragments = bin.numberOfRows + fragments;
-      combinations = combinations * bin.numberOfRows;
-      var styleSwitchIndex = totalCombinations/combinations;
+      fragments = bin.array.length + fragments;
+      combinations = combinations * bin.array.length;
       var rowIndex = 0;
       var binRows = [];
-      for (var col=0; col<bin.numberOfRows; col++) {
-        binRows.push(fragments-col);
+      for (var colIndex=0; colIndex<bin.array.length; colIndex++) {
+        headers.push(bin.array[colIndex]);
+
+        // //fragments are the total number of frags in the table so far, and is 1 based because it's a length count
+        // //to make it zero based we have to delete one
+        // var fragIndex = fragments-1;
+        var difference = bin.array.length-fragments;
+        binRows.push(colIndex-difference);
       }
       binArray.push(binRows);
     });
     makeCombinations(binArray, makeRowIndexArray);
     
 
-    var headers = [];
-    var rows = [];
-    for (var i = 0; i < fragments; i++) {
-      headers.push(i);
-    }
+    // var headers = [];
+    // var rows = [];
+    // for (var i = 0; i < fragments; i++) {
+    //   headers.push(i);
+    // }
 
-    var rowText = 'O';
 
     return (
       <div className ="wellTable">
         <table style={{width:'100%'}}>
           <thead style={{display:'table-header-group'}}>
             <tr>
-              <th>blank </th>
+              <th> </th>
               {headers.map(function(header) {
                 return (
-                  <th> {"Frag_" + header} </th>
+                  <th> {header} </th>
                   );
               })}
+              <th> Buffer and Enzyme Mix (uL) </th>
+              <th> dH20 (uL) </th>
+              <th> Final Volume (Vf) (uL) </th>
             </tr>
           </thead>
+          <tbody style={{border: '1px solid black'}}>
           {rowIndexArray.map(function(row, index) {
             return (
               <tr>
@@ -91,8 +122,7 @@ var App = React.createClass({
                   console.log('row: ' + row);
                   if (row.indexOf(columnNumber) > -1) {
                     //return a filled in cell
-                    debugger
-                    cell = (<td> Hit </td>);
+                    cell = (<td style={{textAlign: 'center', border: '1px solid black'}}> 2 ml </td>);
                   } else {
                     //return a blank cell
                     cell = (<td>  </td>);
@@ -102,10 +132,13 @@ var App = React.createClass({
                     {cell}
                   );
                 })}
+                <td style={{textAlign: 'center', border: '1px solid black'}}> 4.75 </td>
+                <td style={{textAlign: 'center', border: '1px solid black'}}> 14.25 </td>
+                <td style={{textAlign: 'center', border: '1px solid black'}}>{finalVolume}</td>
               </tr>
               );
           })}
-          
+          </tbody>
         </table>
       </div>
       );
