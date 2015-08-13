@@ -73,6 +73,9 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
+    if (this.props.rowData !== nextProps.rowData) {
+      this.items = {};
+    }
     var rowStart = this.rowStart;
     var newNumberOfRowsToDisplay = this.state.visibleRows.length;
     this.props.rowData = nextProps.rowData;
@@ -80,6 +83,7 @@ module.exports = React.createClass({
   },
 
   componentWillUpdate: function() {
+
     var visibleRowsContainer = React.findDOMNode(this.refs.visibleRowsContainer);
     this.soonToBeRemovedRowElementHeights = 0;
     this.numberOfRowsAddedToTop = 0;
@@ -288,8 +292,22 @@ module.exports = React.createClass({
     // console.log('render!');
     var self = this;
     // console.log('this.state.visibleRows: ' + JSON.stringify(this.state.visibleRows,null,4));
+    // var rowItems = this.state.visibleRows.map(function(row) {
+    //   return self.props.items[row.rowNumber];
+    // });
     var rowItems = this.state.visibleRows.map(function(row) {
-      return self.props.items[row.rowNumber];
+      // return self.props.renderFunction(row);
+      var newItem;
+      if (!self.items) {
+        self.items = {};
+      }
+      if (self.items[row.rowNumber]) {
+        newItem = self.items[row.rowNumber];
+      } else {
+        newItem = self.props.renderFunction(row);
+        self.items[row.rowNumber] = newItem;
+      }
+      return newItem;
     });
 
     var rowHeight = this.currentAverageElementHeight ? this.currentAverageElementHeight : this.props.averageElementHeight;
