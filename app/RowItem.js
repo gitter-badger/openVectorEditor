@@ -31,7 +31,19 @@ var RowItem = React.createClass({
     sequenceLength: ['$sequenceLength'],
     bpsPerRow: ['$bpsPerRow']
   },
+  
+  shouldComponentUpdate: function(nextProps, nextState) {
+    console.log('shouldComponentUpdate');
+    return true;
+    // return nextProps.id !== this.props.id;
+  },
 
+  componentWillReceiveProps: function (argument) {
+    console.log('componentWillReceiveProps');
+  },
+  componentWillUpdate: function (argument) {
+    console.log('componentWillUpdate');
+  },
   render: function () {
     var row = this.props.row;
     var bpsPerRow = this.state.bpsPerRow;
@@ -140,6 +152,7 @@ var RowItem = React.createClass({
     // if (row.translations.length && showTranslations) {
     //   debugger;
     // }
+      // console.log('this.state.selectionLayer: ' + this.state.selectionLayer.selected);
     return (
         <div className="rowContainer"
           style={rowContainerStyle}

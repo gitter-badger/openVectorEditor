@@ -5,6 +5,7 @@ var RowItem = require('./RowItem.js');
 var InfiniteScroller = require('./InfiniteScroller.js');
 var setCaretPosition = require('./actions/setCaretPosition');
 var setSelectionLayer = require('./actions/setSelectionLayer');
+var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
 // var setVisibleRows = require('./actions/setVisibleRows');
 
 // var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
@@ -165,8 +166,22 @@ var RowView = React.createClass({
   },
 
   render: function () {
-    // console.log('render!');
+    console.log('render!');
     var self = this;
+
+    if (this.state.rowData !== this.oldRowData) {
+      //we do this check here to 
+      this.items = this.state.rowData.map(function (row,index) {
+        if (index%1000 === 0) {
+          console.log('item');
+        }
+        return(<RowItem 
+                  key={row.rowNumber}
+                  row={row} />);
+      });
+    } else {
+    }
+    this.oldRowData = this.state.rowData;
     function renderRows (row) {
           if (row) {
             //    key={row.rowNumber}
@@ -214,6 +229,7 @@ var RowView = React.createClass({
                 averageElementHeight={100}
                 containerHeight={this.state.rowViewDimensions.height}
                 renderFunction={renderRows}
+                items={this.items}
                 rowData={this.state.rowData}
                 preloadRowStart={40}
                 /> 

@@ -23,7 +23,7 @@ var SequenceEditor = React.createClass({
     caretPosition: ['vectorEditorState', 'caretPosition'],
     sequenceData: ['vectorEditorState', 'sequenceData'],
     visibleRows: ['vectorEditorState', 'visibleRows'],
-    selectionLayer: ['vectorEditorState', 'selectionLayer'],
+    // selectionLayer: ['vectorEditorState', 'selectionLayer'],
     clipboardData: ['vectorEditorState', 'clipboardData'],
   },
   // cursors: {
@@ -99,12 +99,12 @@ var SequenceEditor = React.createClass({
       // visibilityParameters.rowWidth = charWidth * visibilityParameters.bpsPerRow;
 
     var featuresCount = this.state.sequenceData.features ? this.state.sequenceData.features.length : 0;
-    
+    // <br/>
+    //     selectionLayer: {this.state.selectionLayer.start}  {this.state.selectionLayer.end}
     return (
       <div style={{float:"right"}}>
         features count: {featuresCount}
-        <br/>
-        selectionLayer: {this.state.selectionLayer.start}  {this.state.selectionLayer.end}
+        
         <br/>
         caretPosition: {this.state.caretPosition}
         <br/>

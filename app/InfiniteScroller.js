@@ -289,7 +289,7 @@ module.exports = React.createClass({
     var self = this;
     // console.log('this.state.visibleRows: ' + JSON.stringify(this.state.visibleRows,null,4));
     var rowItems = this.state.visibleRows.map(function(row) {
-      return self.props.renderFunction(row);
+      return self.props.items[row.rowNumber];
     });
 
     var rowHeight = this.currentAverageElementHeight ? this.currentAverageElementHeight : this.props.averageElementHeight;
