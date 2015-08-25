@@ -9,43 +9,11 @@ var data = {
     array: ['plasmid6','plasmid7']
   },{
     array: ['plasmid6','plasmid7']
-  }]
-  // {
-  //   array: ['plasmid8','plasmid9','plasmid10']
-  // },
-  // {
-  //   array: ['plasmid8','plasmid9','plasmid10', 'plasmid11']
-  // }]
+  }],
+  finalVolume: 25,
+  bufferMix: 4.75,
+  pipetteVolume: 3
  };
-
-// var data = {
-//   bins:[{
-//     row1: {name: 'row1'},
-//     row2: {name: 'row2'},
-//     row3: {name: 'row3'}
-//   },{
-//     row1: {name: 'row1'},
-//     row2: {name: 'row2'}
-//   },{
-//     row1: {name: 'row1'},
-//     row2: {name: 'row2'}
-//   }]
-// }
-
-// var WellRow = React.createClass {
-//   render: function() {
-//     var well = this.props.fragments;
-//   }
-// }
-// var filledRow = React.createClass({
-//   render: function() {
-//     return ({
-//       <tr>
-
-//       </tr>
-//     })
-//   }
-// })
 
 var App = React.createClass({
   render: function () {
@@ -69,7 +37,11 @@ var App = React.createClass({
     var totalCombinations = 1;
     var combinations = 1;
     var headers = [];
-    var finalVolume = 19 + this.props.data.bins.length*2;
+    var finalVolume = data.finalVolume;
+    var bufferVolume = data.bufferMix;
+    var pipetteVolume = data.pipetteVolume;
+    var waterVolume = finalVolume - this.props.data.bins.length*pipetteVolume - bufferVolume;
+    var pipetteVolume = data.pipetteVolume;
     this.props.data.bins.forEach(function(bin) {
       fragments = bin.array.length + fragments;
       combinations = combinations * bin.array.length;
@@ -116,13 +88,13 @@ var App = React.createClass({
           {rowIndexArray.map(function(row, index) {
             return (
               <tr>
-                <th colSpan="1"> {"Combo_" + (index + 1)} </th>
+                <th colSpan="1"> {"Output " + (index + 1)} </th>
                 {headers.map(function(header, columnNumber) { //loop through the length of the headers array
                   var cell;
                   console.log('row: ' + row);
                   if (row.indexOf(columnNumber) > -1) {
                     //return a filled in cell
-                    cell = (<td style={{textAlign: 'center', border: '1px solid black'}}> 2 ml </td>);
+                    cell = (<td style={{textAlign: 'center', border: '1px solid black'}}> {pipetteVolume} ml </td>);
                   } else {
                     //return a blank cell
                     cell = (<td>  </td>);
@@ -132,8 +104,8 @@ var App = React.createClass({
                     {cell}
                   );
                 })}
-                <td style={{textAlign: 'center', border: '1px solid black'}}> 4.75 </td>
-                <td style={{textAlign: 'center', border: '1px solid black'}}> 14.25 </td>
+                <td style={{textAlign: 'center', border: '1px solid black'}}> {bufferVolume} </td>
+                <td style={{textAlign: 'center', border: '1px solid black'}}> {waterVolume} </td>
                 <td style={{textAlign: 'center', border: '1px solid black'}}>{finalVolume}</td>
               </tr>
               );
