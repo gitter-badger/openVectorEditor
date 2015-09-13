@@ -110,6 +110,7 @@ var RowItem = React.createClass({
           onMouseUp={this.onMouseUp}
           onMouseDown={this.onMouseDown}
           >
+            {row.rowNumber}
             {this.state.showFeatures &&
               <FeatureContainer
                 annotationRanges={row.features}

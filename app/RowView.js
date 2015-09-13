@@ -2,7 +2,8 @@
 var React = require('react');
 var Draggable = require('react-draggable');
 var RowItem = require('./RowItem.js');
-var InfiniteScroller = require('react-variable-height-infinite-scroller');
+// var InfiniteScroller = require('react-variable-height-infinite-scroller');
+var InfiniteScroller = require('./IS');
 var setCaretPosition = require('./actions/setCaretPosition');
 var setSelectionLayer = require('./actions/setSelectionLayer');
 // var setVisibleRows = require('./actions/setVisibleRows');
@@ -203,7 +204,7 @@ var RowView = React.createClass({
                 >
                 <InfiniteScroller
                     ref={'InfiniteScroller'}
-                    averageElementHeight={100}
+                    averageElementHeight={200}
                     containerHeight={this.state.rowViewDimensions.height}
                     renderRow={renderRows}
                     totalNumberOfRows={this.state.rowData.length}
