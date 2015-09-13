@@ -322,8 +322,10 @@ const InfiniteScoller = React.createClass({
 
     const infiniteContainerStyle = {
       height: this.props.containerHeight,
-      overflowY: 'scroll',
+      overflowY: 'scroll'
     };
+    var smoothScrollingWrapperStyle = {}
+    smoothScrollingWrapperStyle.pointerEvents = null;
 
     return (
       <div
@@ -332,11 +334,14 @@ const InfiniteScoller = React.createClass({
         style={infiniteContainerStyle}
         onScroll={this.onEditorScroll}
       >
-        <div className="topSpacer" style={{height: this.topSpacerHeight}}/>
-        <div ref="visibleRowsContainer" className="visibleRowsContainer">
-          {rowItems}
+
+        <div ref="smoothScrollingWrapper" style={smoothScrollingWrapperStyle}>
+          <div className="topSpacer" style={{height: this.topSpacerHeight}}/>
+          <div ref="visibleRowsContainer" className="visibleRowsContainer">
+            {rowItems}
+          </div>
+          <div ref="bottomSpacer" className="bottomSpacer" style={{height: this.bottomSpacerHeight}}/>
         </div>
-        <div ref="bottomSpacer" className="bottomSpacer" style={{height: this.bottomSpacerHeight}}/>
       </div>
     );
   },
