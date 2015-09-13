@@ -170,9 +170,9 @@ var RowView = React.createClass({
     render: function() {
         // console.log('render!');
         var self = this;
-        function renderRows(rowNumber) {
+        function renderRows(rowNumber, relativeRowNumber) {
             return (<RowItem 
-              key={rowNumber}
+              key={relativeRowNumber}
               row={self.state.rowData[rowNumber]} />);
         }
 

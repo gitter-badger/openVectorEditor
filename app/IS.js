@@ -272,7 +272,7 @@ const InfiniteScoller = React.createClass({
   },
 
   render() {
-    const rowItems = this.state.visibleRows.map((i) => this.props.renderRow(i));
+    const rowItems = this.state.visibleRows.map((i) => this.props.renderRow(i, i%this.state.visibleRows.length));
 
     const rowHeight = this.currentAverageElementHeight ? this.currentAverageElementHeight : this.props.averageElementHeight;
     // let space = 0;
